@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ManagedCache" representedClassName="ManagedCache" syncable="YES">
+        <relationship name="cache" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ManagedTransaction" inverseName="feed" inverseEntity="ManagedTransaction"/>
+    </entity>
+    <entity name="ManagedTransaction" representedClassName="ManagedTransaction" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="remarks" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedCache" inverseName="cache" inverseEntity="ManagedCache"/>
+        <relationship name="transactionCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTransactionCategory" inverseName="transaction" inverseEntity="ManagedTransactionCategory"/>
+    </entity>
+    <entity name="ManagedTransactionCategory" representedClassName="ManagedTransactionCategory" syncable="YES">
+        <attribute name="hexColor" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="transaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTransaction" inverseName="transactionCategory" inverseEntity="ManagedTransaction"/>
+    </entity>
+</model>
