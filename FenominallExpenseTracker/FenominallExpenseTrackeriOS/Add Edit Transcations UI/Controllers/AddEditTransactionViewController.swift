@@ -60,7 +60,7 @@ public final class AddEditTransactionViewController: UIViewController {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        let itemWidth = (UIScreen.main.bounds.width - 50) / 4  // Adjust the number of columns and spacing as needed
+        let itemWidth = (UIScreen.main.bounds.width - 50) / 4
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth + 20)
         categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(nibName: nil, bundle: nil)
@@ -135,12 +135,11 @@ public final class AddEditTransactionViewController: UIViewController {
         
         navigationController?.navigationItem.backButtonTitle = "Back"
         navigationItem.setRightBarButton(.init(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped)), animated: true)
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.rightBarButtonItem?.tintColor = .label
         
         categoryCollectionView.backgroundColor = .systemBackground
         categoryCollectionView.allowsSelection = true
         categoryCollectionView.allowsMultipleSelection = false
-        categoryCollectionView.backgroundColor = .clear
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -291,7 +290,7 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
                 circularViewColor: UIColor(hex: "#9bb58e"),
                 image: UIImage(systemName: "plus"),
                 imageTintColor: .black,
-                titleFont: .systemFont(ofSize: 14, weight: .bold),
+                titleFont: UIFont.preferredFont(forTextStyle: .headline),
                 circularViewTopPadding: 10,
                 circularViewWidthMultiplier: 0.6
             )
@@ -330,7 +329,7 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = title
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }
     
