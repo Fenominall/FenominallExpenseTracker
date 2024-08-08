@@ -68,7 +68,7 @@ public final class CategorySelectionViewController: UIViewController {
     
     private func setupUI() {
         title = "Select Category"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         

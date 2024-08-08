@@ -36,7 +36,7 @@ class IconsCatalogViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Select", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(hex: "#f1e048")
         button.isEnabled = false
@@ -59,7 +59,7 @@ class IconsCatalogViewController: UIViewController {
     
     private func setupUI() {
         title = "Select Icon"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         view.addSubview(collectionView)
         view.addSubview(selectIconButton)
@@ -91,10 +91,10 @@ extension IconsCatalogViewController: UICollectionViewDataSource, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconCollectionViewCell.identifier, for: indexPath) as! IconCollectionViewCell
         let iconSection = IconSection.allCases[indexPath.section]
         let iconName = iconSection.assetNames[indexPath.item]
-        print("Configuring cell with icon: \(iconName)")
         cell.configure(with: iconName)
         cell.setSelected(indexPath == selectedIndexPath)
-        return cell    }
+        return cell
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingSpace = sectionInsets.left * CGFloat(itemsPerRow + 1)
@@ -129,7 +129,6 @@ extension IconsCatalogViewController: UICollectionViewDataSource, UICollectionVi
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: IconSectionHeaderView.identifier, for: indexPath) as! IconSectionHeaderView
             let section = IconSection.allCases[indexPath.section]
-            print("Configuring header for section: \(section.rawValue)")
             headerView.configure(with: section.rawValue)
             return headerView
         }

@@ -13,7 +13,7 @@ class CategoryCell: UICollectionViewCell {
     private lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 60 / 2
         return view
     }()
@@ -23,12 +23,14 @@ class CategoryCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .black
+        label.textColor = .label
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .systemBackground
+        
         contentView.addSubview(containerView)
         contentView.addSubview(nameLabel)
         

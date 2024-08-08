@@ -14,7 +14,8 @@ class IconSectionHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.textColor = .label
         return label
     }()
 

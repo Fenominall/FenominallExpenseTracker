@@ -26,12 +26,14 @@ public final class CreateCategoryViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.backgroundColor = .systemBackground
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
     private lazy var containerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .systemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -57,6 +59,7 @@ public final class CreateCategoryViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Category Name"
         textField.borderStyle = .roundedRect
+        textField.backgroundColor = .systemBackground
         textField.layer.cornerRadius = 12
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(
@@ -71,6 +74,7 @@ public final class CreateCategoryViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Expenses".capitalized
+        label.textColor = .label
         return label
     }()
     
@@ -78,6 +82,7 @@ public final class CreateCategoryViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Income".capitalized
+        label.textColor = .label
         return label
     }()
     
@@ -85,6 +90,7 @@ public final class CreateCategoryViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Icons".capitalized
+        label.textColor = .label
         return label
     }()
     
@@ -92,13 +98,14 @@ public final class CreateCategoryViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Color".capitalized
+        label.textColor = .label
         return label
     }()
     
     private lazy var expenseRadioButton: RadioButton = {
         let button = RadioButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .black
+        button.tintColor = .label
         button.tag = 0
         button.addTarget(
             self,
@@ -111,7 +118,7 @@ public final class CreateCategoryViewController: UIViewController {
     private lazy var incomeRadioButton: RadioButton = {
         let button = RadioButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .black
+        button.tintColor = .label
         button.tag = 1
         button.addTarget(self, action: #selector(radioButtonTapped(_:)), for: .touchUpInside)
         return button
@@ -121,6 +128,7 @@ public final class CreateCategoryViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [expenseRadioButton, expenseTitleLabel])
         stack.axis = .horizontal
         stack.spacing = 5
+        stack.backgroundColor = .systemBackground
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -128,6 +136,7 @@ public final class CreateCategoryViewController: UIViewController {
     private lazy var incomeStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [incomeRadioButton, incomeTitleLabel])
         stack.axis = .horizontal
+        stack.backgroundColor = .systemBackground
         stack.spacing = 5
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
@@ -136,6 +145,7 @@ public final class CreateCategoryViewController: UIViewController {
     private lazy var transactionTypesStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [expensesStackView, incomeStackView])
         stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.backgroundColor = .systemBackground
         stack.axis = .horizontal
         stack.spacing = 30
         return stack
@@ -176,7 +186,7 @@ public final class CreateCategoryViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Add", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemBackground, for: .normal)
         button.layer.cornerRadius = 20
         button.backgroundColor = .orange
         button.isEnabled = false
@@ -212,7 +222,7 @@ public final class CreateCategoryViewController: UIViewController {
     
     private func setupUI() {
         title = "Create Category"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
@@ -465,7 +475,7 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = .black
+        label.textColor = .label
         header.addSubview(label)
         
         NSLayoutConstraint.activate([

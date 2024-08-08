@@ -23,12 +23,14 @@ class ColorPalletsViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = true
         scrollView.alwaysBounceVertical = true
+        scrollView.backgroundColor = .systemBackground
         return scrollView
     }()
     
     private lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -41,6 +43,7 @@ class ColorPalletsViewController: UIViewController {
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .systemBackground
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
@@ -55,7 +58,7 @@ class ColorPalletsViewController: UIViewController {
         pageControl.numberOfPages = calculateNumberOfPages()
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = .lightGray
-        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.currentPageIndicatorTintColor = .label
         return pageControl
     }()
     
@@ -63,7 +66,7 @@ class ColorPalletsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Select", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(hex: "#f1e048")
         button.isEnabled = false
@@ -79,7 +82,7 @@ class ColorPalletsViewController: UIViewController {
     
     private func setupUI() {
         title = "Select Color"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)

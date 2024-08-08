@@ -14,7 +14,7 @@ extension UISearchBar {
 
         if let textField = self.value(forKey: "searchField") as? UITextField {
             textField.borderStyle = .none
-            textField.backgroundColor = .white
+            textField.backgroundColor = .systemBackground
         }
     }
 }

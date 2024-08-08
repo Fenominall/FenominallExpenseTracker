@@ -95,19 +95,39 @@ public final class AddEditTransactionViewController: UIViewController {
     
     private func setupUI() {
         title = "Add Transaction"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         titleTextField.delegate = self
+        titleTextField.textColor = .label
+        titleTextField.backgroundColor = .systemBackground
+        titleLabel.textColor = .label
+                        
         remarksTextField.delegate = self
+        remarksTextField.textColor = .label
+        remarksTextField.backgroundColor = .systemBackground
+        remarksLabel.textColor = .label
+        
         amountTextField.delegate = self
         amountTextField.placeholder = currencyString(0)
+        amountTextField.textColor = .label
+        amountTextField.backgroundColor = .systemBackground
+        amountLabel.textColor = .label
         
         datePicker.datePickerMode = .date
+        datePicker.tintColor = .systemBackground
+        datePicker.backgroundColor = .systemBackground
+        dateLabel.textColor = .label
+        
+        typeLabel.textColor = .label
+        categoryLabel.textColor = .label
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
+        typeSegmentedControl.backgroundColor = .systemBackground
+        typeSegmentedControl.selectedSegmentTintColor = .systemBackground
+        typeSegmentedControl.tintColor = .systemBackground
         typeSegmentedControl.selectedSegmentIndex = 0
         typeSegmentedControl.addTarget(self, action: #selector(typeSegmentChanged), for: .valueChanged)
         
@@ -117,6 +137,7 @@ public final class AddEditTransactionViewController: UIViewController {
         navigationItem.setRightBarButton(.init(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped)), animated: true)
         navigationItem.rightBarButtonItem?.tintColor = .black
         
+        categoryCollectionView.backgroundColor = .systemBackground
         categoryCollectionView.allowsSelection = true
         categoryCollectionView.allowsMultipleSelection = false
         categoryCollectionView.backgroundColor = .clear
@@ -310,14 +331,13 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = title
         label.font = .systemFont(ofSize: 12, weight: .regular)
-        label.textColor = .lightGray
         return label
     }
     
     private static func makeTextField() -> UITextField {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.backgroundColor = .white
+        textField.backgroundColor = .systemBackground
         textField.layer.cornerRadius = 12
         textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         textField.borderStyle = .roundedRect

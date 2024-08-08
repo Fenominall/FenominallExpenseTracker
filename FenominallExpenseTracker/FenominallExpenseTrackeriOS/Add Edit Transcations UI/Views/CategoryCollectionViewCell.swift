@@ -15,6 +15,7 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
+        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -23,13 +24,14 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 30
+        view.backgroundColor = .systemBackground
         return view
     }()
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .white
+        imageView.tintColor = .systemBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -37,6 +39,7 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .label
         label.font = .systemFont(ofSize: 12, weight: .regular)
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +50,7 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .systemBackground
         
         contentView.addSubview(containerView)
         containerView.addSubview(circularView)
@@ -94,14 +98,14 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
             if self.isSelected {
                 // Update cell for selected state
                 self.containerView.backgroundColor = self.circularView.backgroundColor
-                self.imageView.tintColor = .white
-                self.titleLabel.textColor = .white
+                self.imageView.tintColor = .systemBackground
+                self.titleLabel.textColor = .label
                 self.containerView.layer.cornerRadius = 10
             } else {
                 // Update cell for deselected state
                 self.containerView.backgroundColor = .clear
-                self.imageView.tintColor = .white
-                self.titleLabel.textColor = .black
+                self.imageView.tintColor = .systemBackground
+                self.titleLabel.textColor = .label
                 self.containerView.layer.cornerRadius = 0
             }
         }
@@ -117,7 +121,7 @@ public class CategoryCollectionViewCell: UICollectionViewCell {
         
         AssetsImageLoader.getAssetImage(byName: category.imageData, in: imageView)
         
-        imageView.tintColor = .white
-        titleLabel.textColor = .black
+        imageView.tintColor = .systemBackground
+        titleLabel.textColor = .label
     }
 }

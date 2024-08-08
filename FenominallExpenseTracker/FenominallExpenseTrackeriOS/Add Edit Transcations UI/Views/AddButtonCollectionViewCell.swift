@@ -16,6 +16,7 @@ public class AddButtonCollectionViewCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
+        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -23,6 +24,7 @@ public class AddButtonCollectionViewCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
+        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -36,6 +38,7 @@ public class AddButtonCollectionViewCell: UICollectionViewCell {
     open lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -63,6 +66,8 @@ public class AddButtonCollectionViewCell: UICollectionViewCell {
     // MARK: - Setup
     
     open func setupViews() {
+        contentView.backgroundColor = .systemBackground
+        
         contentView.addSubview(containerView)
         containerView.addSubview(circularView)
         circularView.addSubview(imageView)

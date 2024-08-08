@@ -30,6 +30,7 @@ public final class SearchViewController: UIViewController {
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.isHidden = true
         label.text = "Nothing was found!"
+        label.textColor = .label
         label.textAlignment = .center
         return label
     }()
@@ -37,6 +38,9 @@ public final class SearchViewController: UIViewController {
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.backgroundColor = .systemBackground
+        searchBar.barTintColor = .systemBackground
+        searchBar.tintColor = .systemBackground
         DispatchQueue.global(qos: .background).async {
             let localizedPlaceholder = NSLocalizedString(
                 "Search transactions...",
@@ -52,27 +56,24 @@ public final class SearchViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemBackground
         return tableView
     }()
     
     private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.color = .systemBackground
         return indicator
     }()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupUI()
         setupSearchHandling()
         
-        tableView.separatorStyle = .none
-        searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         setupNavigationItems()
+        setupTableViewAndSearchBar()
     }
     
     private func setupNavigationItems() {
@@ -83,11 +84,20 @@ public final class SearchViewController: UIViewController {
             target: self,
             action: #selector(showFilterOptions)
         )
-        filterButton.tintColor = .black
+        filterButton.tintColor = .label
         navigationItem.rightBarButtonItem = filterButton
     }
     
+    private func setupTableViewAndSearchBar() {
+        tableView.separatorStyle = .none
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
     private func setupUI() {
+        view.backgroundColor = .systemBackground
+
         view.addSubview(searchBar)
         view.addSubview(tableView)
         view.addSubview(loadingIndicator)
@@ -113,6 +123,7 @@ public final class SearchViewController: UIViewController {
     
     @objc private func showFilterOptions() {
         let alert = UIAlertController(title: "Filter Options", message: nil, preferredStyle: .actionSheet)
+        alert.tabBarItem.badgeColor = .label
         
         for option in FilterOption.allCases {
             let action = UIAlertAction(title: option.rawValue, style: .default) { [weak self] _ in
