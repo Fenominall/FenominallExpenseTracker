@@ -23,7 +23,7 @@ public final class CardViewHeader: UITableViewHeaderFooterView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
         view.layer.cornerRadius = 10
-        view.applyShadow(color: .systemBackground, opacity: 0.3)
+        view.applyShadow(color: .label, opacity: 0.3)
         return view
     }()
     
