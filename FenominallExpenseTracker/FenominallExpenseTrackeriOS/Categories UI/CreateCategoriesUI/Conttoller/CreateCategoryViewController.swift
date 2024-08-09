@@ -353,14 +353,14 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
                 collectionView: collectionView,
                 indexPath: indexPath,
                 addButtonTitle: "Add Color",
-                addButtonItemIndex: 6,
-                circularViewTopPadding: 0,
+                addButtonItemIndex: ColorPallets.colors.prefix(7).count,
+                circularViewTopPadding: 0.5,
                 circularViewWidthMultiplier: 0.5,
                 addButtonAction: { [weak self] in
                     self?.testShowColorPalletsViewController()
                 },
                 configureRegularCell: { cell in
-                    let color = ColorPallets.colors[indexPath.item]
+                    let color = ColorPallets.colors.shuffled()[indexPath.item]
                     (cell as! ColorCollectionViewCell).configure(with: color)
                 }
             )
@@ -415,7 +415,7 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 44)
+        return CGSize(width: collectionView.frame.width, height: 40)
     }
     
     private func showIconsCatalogViewController() {
@@ -443,7 +443,8 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
         let regularCellWidth = (availableWidth / itemsPerRow) - 1
         
         if indexPath.section == 0 && indexPath.item ==
-            IconSection.finances.assetNames.count || indexPath.section == 1 && indexPath.item == 6 {
+            IconSection.finances.assetNames.count || 
+            indexPath.section == 1 && indexPath.item == ColorPallets.colors.prefix(7).count {
             
             let addButtonWidth = availableWidth / itemsPerRow
             return CGSize(width: addButtonWidth, height: addButtonWidth)
@@ -475,25 +476,17 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
     private func configureHeaderLabel(_ header: UICollectionReusableView, forSection section: Int) {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .label
-        header.addSubview(label)
         
+        label.text = section == 0 ? "Icons" : "Colors"
+        
+        header.addSubview(label)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 10),
             label.centerYAnchor.constraint(equalTo: header.centerYAnchor)
         ])
-        
-        switch section {
-        case 0:
-            label.text = "Icons"
-        case 1:
-            label.text = "Colors"
-        default:
-            label.text = ""
-        }
     }
-    
     
     private func configureCell(
         collectionView: UICollectionView,
@@ -521,12 +514,13 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
                 withTitle: addButtonTitle,
                 circularViewColor: UIColor(hex: "#9bb58e"),
                 image: UIImage(systemName: "plus"),
-                imageTintColor: .black,
-                titleFont: .systemFont(ofSize: 12),
+                imageTintColor: .label,
+                titleFont: .preferredFont(forTextStyle: .footnote),
                 circularViewTopPadding: circularViewTopPadding,
                 circularViewWidthMultiplier: circularViewWidthMultiplier
             )
             cell.addCategoryAction = addButtonAction
+            
             cell.contentView.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
