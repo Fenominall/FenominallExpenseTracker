@@ -66,7 +66,7 @@ class ColorPalletsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Select", for: .normal)
-        button.setTitleColor(.label, for: .normal)
+        button.setTitleColor(.systemBackground, for: .normal)
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(hex: "#f1e048")
         button.isEnabled = false
