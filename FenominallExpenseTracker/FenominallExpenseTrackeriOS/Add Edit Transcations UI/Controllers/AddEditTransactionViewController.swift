@@ -33,7 +33,7 @@ public final class AddEditTransactionViewController: UIViewController {
         button.applyShadow()
         return button
     }()
-    private let categoryCollectionView: UICollectionView
+    private var categoryCollectionView: UICollectionView
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
@@ -43,6 +43,8 @@ public final class AddEditTransactionViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupKeyboardNotifications()
+        checkIfTransactionToEdit()
+        makeUICollectionViewFlowLayout()
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -58,17 +60,19 @@ public final class AddEditTransactionViewController: UIViewController {
         layout.minimumInteritemSpacing = 10
         let itemWidth = (UIScreen.main.bounds.width - 50) / 4
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth + 20)
-        categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(nibName: nil, bundle: nil)
-        
-        categoryCollectionView.dataSource = self
-        categoryCollectionView.delegate = self
-        categoryCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
-        categoryCollectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func makeUICollectionViewFlowLayout() {
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.delegate = self
+        categoryCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        categoryCollectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
     }
     
     private func checkIfTransactionToEdit() {
@@ -84,7 +88,8 @@ public final class AddEditTransactionViewController: UIViewController {
             amountTextField.text = String(transaction.transactionAmount)
             remarksTextField.text = transaction.transactionRemars
             datePicker.date = transaction.rawDateAdded
-            typeSegmentedControl.selectedSegmentIndex = TransactionTypeViewModel.allCases.firstIndex(of: transaction.type) ?? 0
+            typeSegmentedControl.selectedSegmentIndex = TransactionTypeViewModel
+                .allCases.firstIndex(of: transaction.type) ?? 0
             categoryCollectionView.reloadData()
         }
     }
@@ -151,7 +156,6 @@ public final class AddEditTransactionViewController: UIViewController {
     private func setupConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         typeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -396,6 +400,7 @@ extension AddEditTransactionViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - Show category selection ViewController
 extension AddEditTransactionViewController {
     private func showCategorySelectionViewController() {
         viewModel.onCategorySelected?(viewModel.selectedType)
