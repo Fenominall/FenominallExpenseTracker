@@ -137,6 +137,7 @@ public class AddButtonCollectionViewCell: UICollectionViewCell {
         circularViewWidthConstraint?.isActive = true
         
         setNeedsLayout()
+        layoutIfNeeded()
     }
     
     // MARK: - Actions
