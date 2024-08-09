@@ -47,6 +47,12 @@ public final class AddEditTransactionViewController: UIViewController {
         makeUICollectionViewFlowLayout()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        categoryCollectionView.layoutIfNeeded()
+        categoryCollectionView.reloadData()
+    }
+    
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         teardownKeyboardNotifications()
