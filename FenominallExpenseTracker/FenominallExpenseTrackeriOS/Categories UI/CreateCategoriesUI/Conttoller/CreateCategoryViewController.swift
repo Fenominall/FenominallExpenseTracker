@@ -313,7 +313,8 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
         case 0:
             return IconSection.finances.assetNames.count + 1
         case 1:
-            return 7
+            let randomColorsCount = ColorPallets.colors.shuffled().prefix(7).count
+            return randomColorsCount + 1
         default:
             return 0
         }
