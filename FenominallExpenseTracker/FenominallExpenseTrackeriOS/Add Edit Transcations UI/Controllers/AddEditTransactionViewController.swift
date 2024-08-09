@@ -37,11 +37,11 @@ public final class AddEditTransactionViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupConstraints()
+        setupUIConstraints()
         setupKeyboardNotifications()
         checkIfTransactionToEdit()
         makeUICollectionViewFlowLayout()
@@ -68,13 +68,6 @@ public final class AddEditTransactionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func makeUICollectionViewFlowLayout() {
-        categoryCollectionView.dataSource = self
-        categoryCollectionView.delegate = self
-        categoryCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
-        categoryCollectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
-    }
-    
     private func checkIfTransactionToEdit() {
         if let transaction = viewModel.transactionToEdit {
             editTransaction(transaction)
@@ -94,132 +87,11 @@ public final class AddEditTransactionViewController: UIViewController {
         }
     }
     
+    // MARK: Action Events
     private func setupBindings() {
         viewModel.categoriesDidUpdate = { [weak self] in
             self?.categoryCollectionView.reloadData()
         }
-    }
-    
-    private func setupUI() {
-        title = "Add Transaction"
-        view.backgroundColor = .systemBackground
-        
-        titleTextField.delegate = self
-        titleTextField.textColor = .label
-        titleTextField.backgroundColor = .systemBackground
-        titleLabel.textColor = .label
-        
-        remarksTextField.delegate = self
-        remarksTextField.textColor = .label
-        remarksTextField.backgroundColor = .systemBackground
-        remarksLabel.textColor = .label
-        
-        amountTextField.delegate = self
-        amountTextField.placeholder = currencyString(0)
-        amountTextField.textColor = .label
-        amountTextField.backgroundColor = .systemBackground
-        amountLabel.textColor = .label
-        
-        datePicker.datePickerMode = .date
-        datePicker.tintColor = .systemBackground
-        datePicker.backgroundColor = .systemBackground
-        dateLabel.textColor = .label
-        
-        typeLabel.textColor = .label
-        categoryLabel.textColor = .label
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGesture)
-        
-        typeSegmentedControl.backgroundColor = .systemBackground
-        typeSegmentedControl.selectedSegmentTintColor = .systemBackground
-        typeSegmentedControl.tintColor = .systemBackground
-        typeSegmentedControl.selectedSegmentIndex = 0
-        typeSegmentedControl.addTarget(self, action: #selector(typeSegmentChanged), for: .valueChanged)
-        
-        deleteTransactionButton.addTarget(self, action: #selector(didTapDeleteTransaction), for: .touchUpInside)
-        
-        navigationController?.navigationItem.backButtonTitle = "Back"
-        navigationItem.setRightBarButton(.init(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped)), animated: true)
-        navigationItem.rightBarButtonItem?.tintColor = .label
-        
-        categoryCollectionView.backgroundColor = .systemBackground
-        categoryCollectionView.allowsSelection = true
-        categoryCollectionView.allowsMultipleSelection = false
-        
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        [titleLabel, titleTextField, remarksLabel, remarksTextField, amountLabel, amountTextField, datePicker, dateLabel, typeLabel, typeSegmentedControl, categoryLabel, categoryCollectionView, deleteTransactionButton].forEach { contentView.addSubview($0) }
-    }
-    
-    private func setupConstraints() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        typeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        deleteTransactionButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            titleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            remarksLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16),
-            remarksLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            remarksTextField.topAnchor.constraint(equalTo: remarksLabel.bottomAnchor, constant: 10),
-            remarksTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            remarksTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            amountLabel.topAnchor.constraint(equalTo: remarksTextField.bottomAnchor, constant: 10),
-            amountLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            
-            amountTextField.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 16),
-            amountTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            amountTextField.trailingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: -20),
-            amountTextField.widthAnchor.constraint(equalToConstant: 220),
-            
-            dateLabel.topAnchor.constraint(equalTo: remarksTextField.bottomAnchor, constant: 16),
-            dateLabel.leadingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: 16),
-            
-            datePicker.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            typeLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 16),
-            typeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            
-            typeSegmentedControl.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 16),
-            typeSegmentedControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            typeSegmentedControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            categoryLabel.topAnchor.constraint(equalTo: typeSegmentedControl.bottomAnchor, constant: 16),
-            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            
-            categoryCollectionView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 5),
-            categoryCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            categoryCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 240),  // Adjust as needed
-            
-            deleteTransactionButton.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16),
-            deleteTransactionButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            deleteTransactionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            deleteTransactionButton.heightAnchor.constraint(equalToConstant: 40),
-            deleteTransactionButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
     }
     
     public func updateSelectedCategory(_ category: any FenominallExpenseTracker.TransactionCategory) {
@@ -348,6 +220,135 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
         textField.borderStyle = .roundedRect
         textField.applyShadow(opacity: 0.1)
         return textField
+    }
+    
+    private func makeUICollectionViewFlowLayout() {
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.delegate = self
+        categoryCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        categoryCollectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
+    }
+    
+    private func setupUI() {
+        title = "Add Transaction"
+        view.backgroundColor = .systemBackground
+        
+        titleTextField.delegate = self
+        titleTextField.textColor = .label
+        titleTextField.backgroundColor = .systemBackground
+        titleLabel.textColor = .label
+        
+        remarksTextField.delegate = self
+        remarksTextField.textColor = .label
+        remarksTextField.backgroundColor = .systemBackground
+        remarksLabel.textColor = .label
+        
+        amountTextField.delegate = self
+        amountTextField.placeholder = currencyString(0)
+        amountTextField.textColor = .label
+        amountTextField.backgroundColor = .systemBackground
+        amountLabel.textColor = .label
+        
+        datePicker.datePickerMode = .date
+        datePicker.tintColor = .systemBackground
+        datePicker.backgroundColor = .systemBackground
+        dateLabel.textColor = .label
+        
+        typeLabel.textColor = .label
+        categoryLabel.textColor = .label
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
+        typeSegmentedControl.backgroundColor = .systemBackground
+        typeSegmentedControl.selectedSegmentTintColor = .systemBackground
+        typeSegmentedControl.tintColor = .systemBackground
+        typeSegmentedControl.selectedSegmentIndex = 0
+        typeSegmentedControl.addTarget(self, action: #selector(typeSegmentChanged), for: .valueChanged)
+        
+        deleteTransactionButton.addTarget(self, action: #selector(didTapDeleteTransaction), for: .touchUpInside)
+        
+        navigationController?.navigationItem.backButtonTitle = "Back"
+        navigationItem.setRightBarButton(.init(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped)), animated: true)
+        navigationItem.rightBarButtonItem?.tintColor = .label
+        
+        categoryCollectionView.backgroundColor = .systemBackground
+        categoryCollectionView.allowsSelection = true
+        categoryCollectionView.allowsMultipleSelection = false
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        [titleLabel, titleTextField, remarksLabel, remarksTextField, amountLabel, amountTextField, datePicker, dateLabel, typeLabel, typeSegmentedControl, categoryLabel, categoryCollectionView, deleteTransactionButton].forEach { contentView.addSubview($0) }
+    }
+    
+    private func setupUIConstraints() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        typeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        deleteTransactionButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            titleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            remarksLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16),
+            remarksLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            remarksTextField.topAnchor.constraint(equalTo: remarksLabel.bottomAnchor, constant: 10),
+            remarksTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            remarksTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            amountLabel.topAnchor.constraint(equalTo: remarksTextField.bottomAnchor, constant: 10),
+            amountLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            amountTextField.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 16),
+            amountTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            amountTextField.trailingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: -20),
+            amountTextField.widthAnchor.constraint(equalToConstant: 220),
+            
+            dateLabel.topAnchor.constraint(equalTo: remarksTextField.bottomAnchor, constant: 16),
+            dateLabel.leadingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: 16),
+            
+            datePicker.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            typeLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 16),
+            typeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            typeSegmentedControl.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 16),
+            typeSegmentedControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            typeSegmentedControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            categoryLabel.topAnchor.constraint(equalTo: typeSegmentedControl.bottomAnchor, constant: 16),
+            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            categoryCollectionView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 5),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 240),  // Adjust as needed
+            
+            deleteTransactionButton.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16),
+            deleteTransactionButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            deleteTransactionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            deleteTransactionButton.heightAnchor.constraint(equalToConstant: 40),
+            deleteTransactionButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+        ])
     }
 }
 
