@@ -43,10 +43,6 @@ public final class AddEditTransactionViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupKeyboardNotifications()
-        
-        if let transaction = viewModel.transactionToEdit {
-            editTransaction(transaction)
-        }
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -75,6 +71,12 @@ public final class AddEditTransactionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func checkIfTransactionToEdit() {
+        if let transaction = viewModel.transactionToEdit {
+            editTransaction(transaction)
+        }
+    }
+    
     private func editTransaction(_ transaction: TransactionViewModel?) {
         deleteTransactionButton.isHidden = false
         if let transaction = transaction {
@@ -101,7 +103,7 @@ public final class AddEditTransactionViewController: UIViewController {
         titleTextField.textColor = .label
         titleTextField.backgroundColor = .systemBackground
         titleLabel.textColor = .label
-                        
+        
         remarksTextField.delegate = self
         remarksTextField.textColor = .label
         remarksTextField.backgroundColor = .systemBackground
