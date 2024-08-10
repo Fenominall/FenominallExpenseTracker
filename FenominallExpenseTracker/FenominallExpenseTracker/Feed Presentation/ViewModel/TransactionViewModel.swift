@@ -8,9 +8,6 @@
 import Foundation
 import FenominallExpenseTracker
 
-import Foundation
-import FenominallExpenseTracker
-
 public class TransactionViewModel {
     private let id: UUID
     private let title: String
