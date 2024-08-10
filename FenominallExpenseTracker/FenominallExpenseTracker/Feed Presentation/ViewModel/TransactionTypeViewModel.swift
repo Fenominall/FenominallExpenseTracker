@@ -11,4 +11,3 @@ public enum TransactionTypeViewModel: String, CaseIterable {
     case income = "Income"
     case expense = "Expense"
 }
-
