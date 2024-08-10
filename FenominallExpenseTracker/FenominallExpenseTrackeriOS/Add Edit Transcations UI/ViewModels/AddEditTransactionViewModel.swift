@@ -23,7 +23,7 @@ public final class AddEditTransactionViewModel {
     public var deleteHandler: (() -> Void)?
     public var onSaveAddTransaction: ((TransactionViewModel) -> Void)?
     public var onSaveUpdateTransaction: ((TransactionViewModel) -> Void)?
-    public var onCategorySelected: ((TransactionTypeViewModel) -> Void)?
+    public var onTransactionTypeSelected: ((TransactionTypeViewModel) -> Void)?
     var categoriesDidUpdate: (() -> Void)?
     
     public var userDefinedCategories: [TransactionCategory] = [] {

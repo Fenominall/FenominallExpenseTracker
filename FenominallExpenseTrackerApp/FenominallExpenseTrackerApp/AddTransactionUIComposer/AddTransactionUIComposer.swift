@@ -37,7 +37,7 @@ final class AddTransactionUIComposer {
             errorView: WeakReVirtualProxy(viewModel)
         )
         
-        viewModel.onCategorySelected = onFullCategoryListSelection
+        viewModel.onTransactionTypeSelected = onFullCategoryListSelection
         
         return controller
     }

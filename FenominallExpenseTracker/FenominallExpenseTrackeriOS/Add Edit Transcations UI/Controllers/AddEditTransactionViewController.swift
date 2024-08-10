@@ -426,6 +426,6 @@ extension AddEditTransactionViewController: UITextFieldDelegate {
 // MARK: - Show category selection ViewController
 extension AddEditTransactionViewController {
     private func showCategorySelectionViewController() {
-        viewModel.onCategorySelected?(viewModel.selectedType)
+        viewModel.onTransactionTypeSelected?(viewModel.selectedType)
     }
 }
