@@ -89,6 +89,8 @@ public final class AddEditTransactionViewController: UIViewController {
             datePicker.date = transaction.rawDateAdded
             typeSegmentedControl.selectedSegmentIndex = TransactionTypeViewModel
                 .allCases.firstIndex(of: transaction.type) ?? 0
+            viewModel.selectedType = transaction.type
+            
             categoryCollectionView.reloadData()
         }
     }
@@ -193,7 +195,11 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
         }
     }
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let padding: CGFloat = 10
         let availableWidth = collectionView.frame.width - (padding * 4)
         let itemWidth = availableWidth / 4
@@ -285,7 +291,21 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        [titleLabel, titleTextField, remarksLabel, remarksTextField, amountLabel, amountTextField, datePicker, dateLabel, typeLabel, typeSegmentedControl, categoryLabel, categoryCollectionView, deleteTransactionButton].forEach { contentView.addSubview($0) }
+        [
+            titleLabel,
+            titleTextField,
+            remarksLabel,
+            remarksTextField,
+            amountLabel,
+            amountTextField,
+            datePicker,
+            dateLabel,
+            typeLabel,
+            typeSegmentedControl,
+            categoryLabel,
+            categoryCollectionView,
+            deleteTransactionButton
+        ].forEach { contentView.addSubview($0) }
     }
     
     private func setupUIConstraints() {
