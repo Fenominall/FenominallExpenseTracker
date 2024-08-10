@@ -188,11 +188,7 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item < viewModel.categories.count {
-            viewModel.selectedCategory = viewModel.categories[indexPath.item]
-        } else {
-            showCategorySelectionViewController()
-        }
+        viewModel.selectedCategory = viewModel.categories[indexPath.item]
     }
     
     public func collectionView(
