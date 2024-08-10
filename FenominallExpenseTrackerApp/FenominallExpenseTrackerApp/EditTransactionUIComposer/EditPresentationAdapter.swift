@@ -19,6 +19,7 @@ final class EditTransactionUIComposer {
     static func feedComposedWith(
         selectedModel: Transaction,
         notifier: FeedUIUpdateNotifier,
+        onFullCategoryListSelection: ((TransactionTypeViewModel) -> Void)?,
         onSaveUpdateTransaction: @escaping (Transaction) -> AnyPublisher<Void, Error>,
         deleteTransaction: @escaping (Transaction) -> AnyPublisher<Void, Error>
     ) -> AddEditTransactionViewController {
@@ -29,6 +30,7 @@ final class EditTransactionUIComposer {
                 model: selectedModel))
         let controller = AddEditTransactionViewController(viewModel: viewModel)
 
+        viewModel.onTransactionTypeSelected = onFullCategoryListSelection
         viewModel.onSaveUpdateTransaction = { viewModel in
             let transaction = viewModel.createTransactionModel()
             presentationAdapter.saveResource(with: transaction)

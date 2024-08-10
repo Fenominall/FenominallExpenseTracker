@@ -132,6 +132,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .feedComposedWith(
                 selectedModel: transaction,
                 notifier: feedUpdateNotifier,
+                onFullCategoryListSelection: categorySelectionFactory,
                 onSaveUpdateTransaction: makeUpdateTransactionPublisher,
                 deleteTransaction: makeLocalTransactionRemover
             )
