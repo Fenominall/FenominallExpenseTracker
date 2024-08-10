@@ -22,7 +22,6 @@ public final class TransactionDeleter {
                 switch completion {
                 case .finished:
                     self?.notifier.notifyTransactionUpdated()
-                    print("Transaction deleted successfully")
                 case .failure(let error):
                     print("Failed to delete transaction: \(error)")
                 }
