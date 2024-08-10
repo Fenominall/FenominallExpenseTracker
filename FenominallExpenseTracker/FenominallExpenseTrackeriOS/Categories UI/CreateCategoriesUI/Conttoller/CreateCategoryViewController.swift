@@ -14,6 +14,7 @@ public final class CreateCategoryViewController: UIViewController {
     private var viewModel: CategoryCreationViewModel
     private var selectedColorIndexPath: IndexPath?
     private var selectedIconIndexPath: IndexPath?
+    private lazy var firstSevenColors = ColorPallets.colors.prefix(7)
     
     public init(viewModel: CategoryCreationViewModel) {
         self.viewModel = viewModel
@@ -313,8 +314,8 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
         case 0:
             return IconSection.finances.assetNames.count + 1
         case 1:
-            let randomColorsCount = ColorPallets.colors.shuffled().prefix(7).count
-            return randomColorsCount + 1
+            return firstSevenColors.count + 1
+            
         default:
             return 0
         }
@@ -353,14 +354,14 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
                 collectionView: collectionView,
                 indexPath: indexPath,
                 addButtonTitle: "Add Color",
-                addButtonItemIndex: ColorPallets.colors.prefix(7).count,
+                addButtonItemIndex: firstSevenColors.count,
                 circularViewTopPadding: 0.5,
                 circularViewWidthMultiplier: 0.5,
                 addButtonAction: { [weak self] in
                     self?.testShowColorPalletsViewController()
                 },
                 configureRegularCell: { cell in
-                    let color = ColorPallets.colors.shuffled()[indexPath.item]
+                    let color = ColorPallets.colors[indexPath.item]
                     (cell as! ColorCollectionViewCell).configure(with: color)
                 }
             )
@@ -402,7 +403,7 @@ extension CreateCategoryViewController: UICollectionViewDataSource, UICollection
             // Select the new color cell
             selectedColorIndexPath = indexPath
             if let cell = collectionView.cellForItem(at: indexPath) as? ColorCollectionViewCell {
-                let color = ColorPallets.colors[indexPath.item]
+                let color = firstSevenColors[indexPath.item]
                 viewModel.selectColor(color.description)
                 previewCircularView.backgroundColor = UIColor(hex: color)
                 cell.showCheckmark(true, animated: true)
