@@ -90,6 +90,7 @@ Then the app should display a message indicating that no transactions are availa
 ---
 
 # Load Transactions Feed FlowChart
+![FenominallExpenseTrackerLoadFeedFlowChart](https://github.com/Fenominall/FenominallExpenseTracker/blob/main/FenominallExpenseTrackerLoadFeedFlowChart.drawio.png)
 
 ### Cache Transactions Use Case
 
