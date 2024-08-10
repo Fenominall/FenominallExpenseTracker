@@ -89,8 +89,7 @@ public final class AddEditTransactionViewController: UIViewController {
             datePicker.date = transaction.rawDateAdded
             typeSegmentedControl.selectedSegmentIndex = TransactionTypeViewModel
                 .allCases.firstIndex(of: transaction.type) ?? 0
-            viewModel.selectedType = transaction.type
-            
+
             categoryCollectionView.reloadData()
         }
     }
@@ -188,7 +187,11 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.selectedCategory = viewModel.categories[indexPath.item]
+        if indexPath.item < viewModel.categories.count {
+            viewModel.selectedCategory = viewModel.categories[indexPath.item]
+        } else {
+            showCategorySelectionViewController()
+        }
     }
     
     public func collectionView(
