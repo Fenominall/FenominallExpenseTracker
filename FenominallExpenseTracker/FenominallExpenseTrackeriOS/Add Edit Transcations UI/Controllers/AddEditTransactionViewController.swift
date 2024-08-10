@@ -347,7 +347,7 @@ extension AddEditTransactionViewController: UICollectionViewDataSource, UICollec
             categoryCollectionView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 5),
             categoryCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             categoryCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 240),  // Adjust as needed
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 240),
             
             deleteTransactionButton.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16),
             deleteTransactionButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
