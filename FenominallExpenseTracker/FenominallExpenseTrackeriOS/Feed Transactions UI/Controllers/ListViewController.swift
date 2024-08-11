@@ -24,7 +24,14 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
     public override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        setDarkModeSupportForTheBackButton()
+        setupDarkModeForBackButton()
         refresh()
+    }
+    
+    private func setupDarkModeForBackButton() {
+        let navigationBar = UINavigationBar.appearance()
+        navigationBar.tintColor = .label
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +64,13 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
     }
     
     // MARK: - UI Setup
+    private func setDarkModeSupportForTheBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = title
+        backButton.tintColor = .label
+        navigationItem.backBarButtonItem = backButton
+    }
+    
     private func configureTableView() {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .systemBackground
