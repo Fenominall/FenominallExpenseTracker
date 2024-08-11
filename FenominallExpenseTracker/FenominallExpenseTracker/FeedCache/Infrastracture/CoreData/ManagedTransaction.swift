@@ -71,13 +71,21 @@ extension ManagedTransaction {
         managed.amount = localTransaction.amount
         managed.dateAdded = localTransaction.dateAdded
         managed.type = localTransaction.transactionTypeRawValue
-        let category = ManagedTransactionCategory(context: context)
-        category.id = localTransaction.category.id
-        category.name = localTransaction.category.name
-        category.type = localTransaction.category.transactionType.rawValue
-        category.hexColor = localTransaction.category.hexColor
-        category.imageData = localTransaction.category.imageData
-        managed.transactionCategory = category
+        
+        // Check if the category already exists in the context
+        let existingCategory = fetchCategory(byId: localTransaction.category.id.description, from: context)
+
+        if let existingCategory = existingCategory {
+            managed.transactionCategory = existingCategory
+        } else {
+            let category = ManagedTransactionCategory(context: context)
+            category.id = localTransaction.category.id
+            category.name = localTransaction.category.name
+            category.type = localTransaction.category.transactionType.rawValue
+            category.hexColor = localTransaction.category.hexColor
+            category.imageData = localTransaction.category.imageData
+            managed.transactionCategory = category
+        }
         
         return NSOrderedSet(object: managed)
     }
