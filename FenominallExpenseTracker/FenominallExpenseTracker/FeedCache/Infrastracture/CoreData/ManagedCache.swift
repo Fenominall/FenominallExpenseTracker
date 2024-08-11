@@ -38,16 +38,16 @@ extension ManagedCache {
     }
     
     func updateCache(with transaction: LocalTransaction, in context: NSManagedObjectContext) throws {
-        let existingTransactions = cache.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
-        let newTransactions = ManagedTransaction.transactions(from: transaction, in: context)
-        existingTransactions.addObjects(from: newTransactions.array)
-        
-        if let updatedCache = existingTransactions.copy() as? NSOrderedSet {
-            cache = updatedCache
-        } else {
-            throw CacheError.unableToCreateMutableCopy
+            let existingTransactions = cache.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
+            let newTransactions = ManagedTransaction.transactions(from: transaction, in: context)
+            existingTransactions.addObjects(from: newTransactions.array)
+            
+            if let updatedCache = existingTransactions.copy() as? NSOrderedSet {
+                cache = updatedCache
+            } else {
+                throw CacheError.unableToCreateMutableCopy
+            }
         }
-    }
 }
 
 // Delete Logic

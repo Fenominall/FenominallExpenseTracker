@@ -83,6 +83,7 @@
 		4FA3B3642C0DA083008164E4 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA3B3632C0DA083008164E4 /* Graphs.swift */; };
 		4FA3B3662C0DA8D1008164E4 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA3B3652C0DA8D1008164E4 /* ChartModel.swift */; };
 		4FA76B3F2C60B48B00FE632E /* TransactionStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4FA76B3D2C60B48B00FE632E /* TransactionStore.xcdatamodeld */; };
+		4FAC83B82C67F8FA00032B74 /* FetchCategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAC83B72C67F8FA00032B74 /* FetchCategoryHelper.swift */; };
 		4FBC930A2BF239B700C6D7F9 /* IncomeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBC93092BF239B700C6D7F9 /* IncomeCategory.swift */; };
 		4FC2F5C32C242CB1008B52D9 /* AddEditTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC2F5C22C242CB1008B52D9 /* AddEditTransactionViewModel.swift */; };
 		4FC304D92BF602310034338D /* AddEditTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC304D82BF602310034338D /* AddEditTransactionViewController.swift */; };
@@ -212,6 +213,7 @@
 		4FA3B3632C0DA083008164E4 /* Graphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
 		4FA3B3652C0DA8D1008164E4 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
 		4FA76B3E2C60B48B00FE632E /* TransactionStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransactionStore.xcdatamodel; sourceTree = "<group>"; };
+		4FAC83B72C67F8FA00032B74 /* FetchCategoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCategoryHelper.swift; sourceTree = "<group>"; };
 		4FBC93092BF239B700C6D7F9 /* IncomeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCategory.swift; sourceTree = "<group>"; };
 		4FC2F5C22C242CB1008B52D9 /* AddEditTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTransactionViewModel.swift; sourceTree = "<group>"; };
 		4FC304D82BF602310034338D /* AddEditTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTransactionViewController.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 		4F73186E2BDE403300A64223 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				4FAC83B62C67F8E800032B74 /* Helpers */,
 				4F7318802BDE505700A64223 /* CoreDataHelpers.swift */,
 				4F73187E2BDE4FB400A64223 /* CoreDataTransactionStore.swift */,
 				4F058C7A2BE025A900DF8C7F /* CoreDataTransactionStore+TransactionsStore.swift */,
@@ -715,6 +718,14 @@
 				4F70C0172C0E36C600055ABF /* View */,
 			);
 			path = GraphsUI;
+			sourceTree = "<group>";
+		};
+		4FAC83B62C67F8E800032B74 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4FAC83B72C67F8FA00032B74 /* FetchCategoryHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		4FC2F5C02C236E1D008B52D9 /* CategorySelectionUI */ = {
@@ -1042,6 +1053,7 @@
 				4F076EC32C2AA6FC00523148 /* CoreDataTransactionStore+CategoriesStore.swift in Sources */,
 				4F7318812BDE505700A64223 /* CoreDataHelpers.swift in Sources */,
 				4F0E0B442BE0B42500D77C33 /* CacheError.swift in Sources */,
+				4FAC83B82C67F8FA00032B74 /* FetchCategoryHelper.swift in Sources */,
 				4F73186C2BDE212800A64223 /* LocalTransactionCategory.swift in Sources */,
 				4F076EB52C295C2500523148 /* CategoryLoader.swift in Sources */,
 				4F076EC52C2AAF9C00523148 /* LocalTransactionCategoryManager.swift in Sources */,
